@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module Task3 - Hall of Fame</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Task3 - Hall of Fame</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/HaoBin/Dropbox/Monash/2014 Semester 2/FIT1008 Computer Science/Pracs/Prac2/Files_Prac2/Task3 - Hall of Fame.py">/Users/HaoBin/Dropbox/Monash/2014 Semester 2/FIT1008 Computer Science/Pracs/Prac2/Files_Prac2/Task3 - Hall of Fame.py</a></font></td></tr></table>
+    <p><tt>Task&nbsp;3&nbsp;-&nbsp;HOF<br>
+@purpose&nbsp;This&nbsp;program&nbsp;is&nbsp;a&nbsp;game&nbsp;of&nbsp;15-puzzle.<br>
+@author&nbsp;Loh&nbsp;Hao&nbsp;Bin&nbsp;25461257<br>
+@since&nbsp;20140803<br>
+@modified&nbsp;20140806</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-Start_Screen"><strong>Start_Screen</strong></a>()</dt><dd><tt>@purpose:&nbsp;For&nbsp;displaying&nbsp;a&nbsp;welcome&nbsp;screen.<br>
+@parameters:&nbsp;none</tt></dd></dl>
+ <dl><dt><a name="-menu"><strong>menu</strong></a>()</dt><dd><tt>@purpose:&nbsp;Printing&nbsp;menus<br>
+@Parameters:&nbsp;None<br>
+@Complexity:&nbsp;O(1)</tt></dd></dl>
+ <dl><dt><a name="-messages"><strong>messages</strong></a>(n)</dt><dd><tt>@purpose&nbsp;For&nbsp;printing&nbsp;out&nbsp;custom&nbsp;error&nbsp;messages.<br>
+@parameter:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n:&nbsp;The&nbsp;message&nbsp;code&nbsp;to&nbsp;be&nbsp;displayed<br>
+@precondition:&nbsp;The&nbsp;function&nbsp;is&nbsp;passed&nbsp;a&nbsp;message&nbsp;code<br>
+@postcondition:&nbsp;The&nbsp;function&nbsp;displays&nbsp;the&nbsp;requested&nbsp;message.</tt></dd></dl>
+ <dl><dt><a name="-print_current_state"><strong>print_current_state</strong></a>()</dt><dd><tt>@purpose&nbsp;Printing&nbsp;current&nbsp;board<br>
+@Parameters:&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-rand_board"><strong>rand_board</strong></a>()</dt><dd><tt>@purpose&nbsp;For&nbsp;generating&nbsp;a&nbsp;random&nbsp;board</tt></dd></dl>
+ <dl><dt><a name="-swap_blocks"><strong>swap_blocks</strong></a>(old, new)</dt><dd><tt>@purpose&nbsp;For&nbsp;swapping&nbsp;the&nbsp;blank&nbsp;space,&nbsp;and&nbsp;the&nbsp;target&nbsp;block<br>
+@parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;old:&nbsp;the&nbsp;old&nbsp;position&nbsp;of&nbsp;blank&nbsp;space<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new:&nbsp;the&nbsp;new&nbsp;target&nbsp;position&nbsp;of&nbsp;blank&nbsp;space<br>
+@precondition:&nbsp;The&nbsp;function&nbsp;is&nbsp;passed&nbsp;position&nbsp;coordinates&nbsp;of&nbsp;blank&nbsp;space,&nbsp;and&nbsp;the&nbsp;target&nbsp;tile<br>
+@postcondition:&nbsp;The&nbsp;blank&nbsp;space&nbsp;is&nbsp;swapped&nbsp;with&nbsp;the&nbsp;tile&nbsp;in&nbsp;the&nbsp;target&nbsp;position</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>command</strong> = 'quit'<br>
+<strong>old_position</strong> = [3, 0]<br>
+<strong>position</strong> = [3, 0]<br>
+<strong>puzzle</strong> = [['13', ' 9', '12', ' 4'], ['14', '10', '15', ' 5'], [' 2', ' 3', '11', ' 8'], [' X', ' 1', ' 7', ' 6']]<br>
+<strong>quit</strong> = True</td></tr></table>
+</body></html>
