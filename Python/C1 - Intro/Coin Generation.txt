@@ -1,0 +1,181 @@
+Represent the coins as [50,20,10,5]
+while each solution is represented as counters for each coin value e.g (1,0,1,0) for 1x50 + 1x10
+
+possibleItems is actually just a list of indexes, that list out which index position of the current 
+partialSolution should be incremented in the next permutation/backtrack.
+e.g possibleItems = (2,3) for partialSolution=(1,0,0,0) means next iteration it will have values of (1,0,1,0) or (1,0,0,1) 
+
+The algorithm will go through quite a few numbers of repeated solutions. e.g It will repeat (1,0,1,2) for three times 
+1000>1010>1011>1012
+1000>1001>1011>1012
+1000>1001>1002>1012
+
+******************************
+
+Sample Trace
+Coin = [50,20,10,5] 
+Level 0
+	partialSolution = (0,0,0,0) with possibleItems (0,1,2,3)
+	Take 0 from possibleItems
+	Increment index 0 of partialSolution
+	partialSolution is now (1,0,0,0)
+
+	possibleItems of (1,0,0,0) should return (1,2,3) 
+	which then (1,2,3) will be used to increment partialSolution.
+
+	First level: increment index 1 (taken from possibleItems) of partialSolution: 
+		partialSolution = (1,1,0,0)
+		yielding (1,1,0,0) representing 1x50 & 1x20 = 70c (Accepted)
+		It meets the base case of equalling 70c, so it will be accepted.
+
+	Then it should return to first level by decrementing (1,1,0,0) index 1, 
+	partialSolution = (1,0,0,0) again
+	and take 2 from possibleItems
+
+	partialSolution[2] will be incremented -> (1,0,1,0) = 60c
+	Second level: possibleItems of (1,0,1,0) = (2,3)
+			Take 2: partialSolution is now (1,0,2,0) = 70c (Accepted)
+
+	Backtrack: Take 3: partialSolution = (1,0,1,1) = 65c 
+			Third Level: possibleItems = (3)
+				Take 3: partialSolution = (1,0,1,2) = 70c (Accepted)
+
+	Since the possibilities for second level are now exhausted, it should backtrack to 1st level.
+
+	Now possibleItems = (1,2,3) only left 3 as the last possible item.
+	Increment index 3 -> (1,0,0,1) = 55c
+	Second level: possibleItems of 1001 = (2,3)
+		Take 2: partialSolution = 1011 = 65c
+			possibleItems of 1011 = (3)
+				Take 3: partialSolution = 1012 = 70c (Accepted but repeated)
+			backtrack to Second Level
+		Take 3: partialSolution = 1002 
+			possibleItems of 1002 = (2,3)
+				Take 2: 1012 = 70c (Accepted but repeated)
+			backtrack
+				Take 3: 1003 = 65c
+					possibleItems of 1003 = (3)
+						Take 3: 1004 = 70c (Accepted)
+	backtrack to first level
+	partialSolution = (0,0,0,0) with possibleItems (0,1,2,3)
+
+	now take 1 from possibleItems at Level 0, and repeat the process all over again
+
+******************************* Actual Code ******************************
+//Backtracking
+Program QuestionTwo()
+Coin = [200,100,50,20,10,5] //Input coin denominations available
+InputSum = 70	//Target sum of coins
+PartialSolution=[0,0,0,0]
+PreSolutions = []
+FinalSolutions = []
+
+For i = 0 to Length(Coin) - 1,
+	If Coin[i] > InputSum
+		Delete(i, Coin); //Remove improbable coin combinations
+	End If;
+End For;
+
+PreSolutions = coinGeneration(partialSolution);
+
+For k = 0 to Length(PreSolutions) – 1, 
+//go through all the partial solutions
+	If IsPrime( CoinNumber(PreSolutions[k]) ) = True,
+	//check if sum of number of coins in PreSolutions[k] is prime
+		If NumberOfZeroes(PreSolutions[k]) <= (Length(Coin) - 3),
+		//Count of 0s in PreSolutions[k] <= 1 in this case with 4 coins,
+			Add(PreSolutions[k], FinalSolutions);
+			//Accept the solution
+		End If;
+	End If;
+End For;
+
+Return FinalSolutions;
+
+**************************************************************************************
+Function coinGeneration(PartialSolution)
+//Generate list of combinations, that totals to InputSum from list Coin,  
+//each in the form (number of Coin[0], number of coin[1], …, number of coin[Length(Coin)-1] ) 
+//e.g a representation of 1x50c, 1x20c using list of coins { 50,20,10,5 } would be (1, 1, 0, 0).
+
+If ( coinSum(PartialSolution) = InputSum ) 
+	If SequentialSearch(PartialSolution, PreSolutions) = -1 then
+		Add(PartialSolution, PreSolutions);
+ 		print(PartialSolution);
+ 	End If
+else 
+ 	possibleItems = getPossibleCoins(partialSolution)
+ 	k = 0
+
+ 	while (k < length(possibleItems)) do 
+ 		increment( partialSolution[possibleItems[k]] )
+ 		coinGeneration(partialSolution)
+ 		decrement ( partialSolution[possibleItems[k]] )
+ 		k = k + 1
+ 	end while
+End If
+return PreSolutions;
+
+
+Function getPossibleCoins(partialSolution) 
+possible = []
+i = 0
+while i < 4 do
+	if coin[i] <= (InputSum - coinSum(partialSolution)) 
+		add(i, possible)
+	end if
+	i=i+1
+end while
+return possible;
+
+
+Function coinSum(PartialSolution)
+//Sum up the coins represented. e.g (1,1,1,0) would be (1x50 + 1x20 + 1x10 + 0x5)
+i = 0;
+CSum = 0;
+For i = 0 to Length(Coin)
+	CSum = CSum + ( PartialSolution[i] * Coin[i] )
+End For
+Return CSum;
+
+
+Function CoinNumber(PreSolutions[k])
+//Sums up the number of coins in list e.g (1,2,1,3) would return 7
+List = PreSolutions[k]
+i=0
+Sum=0
+For i = 0 to Length(List) do
+	Sum = Sum + List[i]
+End For
+Return Sum;
+
+
+Function NumberOfZeroes(PreSolutions[k])
+//Count the number of zeroes in list e.g (0,3,2,5) would return 1
+List=PreSolutions[k]
+i=0
+Sum=0
+For i = 0 to Length(List) do
+	If List[i] = 0
+		Sum = Sum + 1
+	End If
+End For
+Return Sum;
+
+
+Function Increment( partialSolution[possibleItems[k]] )
+//e.g partialSolution = (0,0,0,0) 
+//		possibleItems[k] = (1,2,3)
+//		k = 1
+//		partialSolution[2] + 1 = 0 + 1 = 1 = (0,0,1,0)
+partialSolution[possibleItems[k]] = partialSolution[possibleItems[k]] + 1
+return partialSolution
+
+
+Function Decrement( partialSolution[possibleItems[k]] )
+//e.g partialSolution = (1,1,3,0) 
+//	  possibleItems[k] = (1,2,3)
+//	  k = 1
+//	  partialSolution[2] - 1 = 3 - 1 = 2 = (1,1,2,0)
+partialSolution[possibleItems[k]] = partialSolution[possibleItems[k]] - 1
+return partialSolution
